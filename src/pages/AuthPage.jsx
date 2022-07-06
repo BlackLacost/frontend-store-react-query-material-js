@@ -1,68 +1,71 @@
-import styled from '@emotion/styled'
-import { Button, Input, Link } from '@mui/material'
-import { Link as RouterLink } from 'react-router-dom'
-import { REGISTRATION_ROUTE } from '../utils/consts'
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #cecece;
-`
-
-const Card = styled.div`
-  width: 400px;
-  padding: 2rem;
-  border: 1px solid #888;
-  border-radius: 0.25rem;
-  background-color: white;
-`
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 1rem;
-`
-
-const TheInput = styled.input`
-  flex-grow: 1;
-  padding: 0.25rem;
-`
-
-const Title = styled.h1`
-  margin: 0;
-  font-size: x-large;
-  text-align: center;
-`
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-`
-
-const RegisterLink = styled.div``
+import {
+  Box,
+  Button,
+  Link,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from '@mui/material'
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
+import { useAuth } from '../hooks/useAuth'
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from '../utils/consts'
 
 export const AuthPage = () => {
+  const { signin } = useAuth()
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+
+  const isLogin = pathname === LOGIN_ROUTE
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    signin('Ilya', () => {})
+    navigate(SHOP_ROUTE, { replace: true })
+  }
   return (
-    <Container>
-      <Card>
-        <Title>Авторизация</Title>
-        <Form>
-          <Input placeholder="Введите ваш email" />
-          <Input placeholder="Введите ваш пароль" />
-          <ButtonWrapper>
-            <RegisterLink>
-              Нет аккаунта?{' '}
-              <Link to={REGISTRATION_ROUTE} component={RouterLink}>
-                Зарегистрируйся!
-              </Link>
-            </RegisterLink>
-            <Button>Войти</Button>
-          </ButtonWrapper>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        backgroundColor: '#cecece',
+      }}
+    >
+      <Paper elevation={7} sx={{ padding: 5, width: 600 }}>
+        <Form onSubmit={onSubmit}>
+          <Typography variant="h4" component="h1" align="center">
+            {isLogin ? 'Вход' : 'Регистрация'}
+          </Typography>
+          <TextField label="Введите ваш email" variant="outlined" />
+          <TextField label="Введите ваш пароль" variant="outlined" />
+          <Stack direction="row" justifyContent="space-between">
+            <Stack direction="row" alignItems="center" spacing={1}>
+              {isLogin ? (
+                <>
+                  <Typography>Нет аккаунта? </Typography>
+                  <Link to={REGISTRATION_ROUTE} component={RouterLink}>
+                    <Typography> Зарегистрируйся!</Typography>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Typography>Есть аккаунт?</Typography>
+                  <Link to={LOGIN_ROUTE} component={RouterLink}>
+                    <Typography>Войдите!</Typography>
+                  </Link>
+                </>
+              )}
+            </Stack>
+            <Button type="submit" variant="contained">
+              {isLogin ? 'Войти' : 'Зарегистрироваться'}
+            </Button>
+          </Stack>
         </Form>
-      </Card>
-    </Container>
+      </Paper>
+    </Box>
   )
 }
+
+const Form = (props) => <Stack spacing={2} component="form" {...props} />
