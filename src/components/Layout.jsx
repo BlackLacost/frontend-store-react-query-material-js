@@ -10,10 +10,10 @@ export const Layout = () => {
 
       <Container>
         <Grid container spacing={3}>
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TypeBar />
           </Grid>
-          <Grid item>
+          <Grid item xs={10}>
             <Outlet />
           </Grid>
         </Grid>

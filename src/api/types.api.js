@@ -1,6 +1,6 @@
-import { api } from '.'
+import { axiosInstance } from '../axiosInstance'
 
 export const fetchTypes = async () => {
-  const res = await api.get('types')
+  const res = await axiosInstance.get('types')
   return res.data
 }

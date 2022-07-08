@@ -5,8 +5,8 @@ import { AdminPage } from './pages/AdminPage'
 import { AuthPage } from './pages/AuthPage'
 import { BasketPage } from './pages/BasketPage'
 import { DevicePage } from './pages/DevicePage'
+import { DevicesPage } from './pages/DevicesPage'
 import { NotFoundPage } from './pages/NotFoundPage'
-import { ShopPage } from './pages/ShopPage'
 import {
   ADMIN_ROUTE,
   BASKET_ROUTE,
@@ -36,7 +36,7 @@ function App() {
           }
         />
 
-        <Route index element={<ShopPage />} />
+        <Route index element={<DevicesPage />} />
         <Route path={DEVICE_ROUTE + '/:id'} element={<DevicePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
