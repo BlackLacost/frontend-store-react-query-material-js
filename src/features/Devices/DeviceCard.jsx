@@ -1,6 +1,6 @@
 import { Card, CardContent, CardMedia, Typography } from '@mui/material'
 
-export const DeviceCard = ({ device }) => {
+export const DeviceCard = ({ device, isFetching }) => {
   return (
     <>
       <Card sx={{ p: 1 }} elevation={4}>
@@ -11,7 +11,10 @@ export const DeviceCard = ({ device }) => {
           image={`${process.env.REACT_APP_IMAGE_HOST}/${device.img}`}
         />
         <CardContent>
-          <Typography variant="subtitle1">{device.brand.name}</Typography>
+          <Typography variant="subtitle1">
+            {device.brand.name}
+            {isFetching && '...'}
+          </Typography>
           <Typography sx={{ minHeight: '6rem' }} variant="h6" component="h1">
             {device.name}
           </Typography>

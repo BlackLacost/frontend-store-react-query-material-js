@@ -13,6 +13,7 @@ import {
   DEVICE_ROUTE,
   LOGIN_ROUTE,
   REGISTRATION_ROUTE,
+  TYPE_ROUTE,
 } from './utils/consts'
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         />
 
         <Route index element={<DevicesPage />} />
+        <Route path={TYPE_ROUTE + '/:typeId'} element={<DevicesPage />} />
         <Route path={DEVICE_ROUTE + '/:id'} element={<DevicePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
